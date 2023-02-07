@@ -5693,6 +5693,8 @@ export class Connection {
       if (signersOrOptions && Array.isArray(signersOrOptions)) {
         throw new Error('Invalid arguments');
       }
+      
+      console.log("sending transaction");
 
       const wireTransaction = transaction.serialize();
       return await this.sendRawTransaction(wireTransaction, options);
