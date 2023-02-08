@@ -5697,7 +5697,7 @@ export class Connection {
     console.log('version' in transaction);
 
 
-
+    //false
     if ('version' in transaction) {
       if (signersOrOptions && Array.isArray(signersOrOptions)) {
         throw new Error('Invalid arguments');
@@ -5713,7 +5713,13 @@ export class Connection {
 
     const signers = signersOrOptions;
     if (transaction.nonceInfo) {
+      console.log("inside transaction .nonceinfo")
+      console.log(transaction.nonceInfo)
+      console.log("transaction before sign");
+      console.log(transaction)
       transaction.sign(...signers);
+      console.log("transaction after sign")
+      console.log(transaction)
     } else {
       let disableCache = this._disableBlockhashCaching;
       for (;;) {

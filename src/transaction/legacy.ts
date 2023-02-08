@@ -660,8 +660,15 @@ export class Transaction {
       publicKey: signer.publicKey,
     }));
 
+    console.log("transaction before compile");
+    console.log(this);
+
     const message = this._compile();
+
+    console.log(message);
     this._partialSign(message, ...uniqueSigners);
+
+    console.log("transaction after _partial Sign");
   }
 
   /**
