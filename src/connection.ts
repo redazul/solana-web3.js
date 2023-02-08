@@ -5703,7 +5703,13 @@ export class Connection {
         throw new Error('Invalid arguments');
       }
       
+      console.log("transaction before serialize")
+      console.log(transaction)
       const wireTransaction = transaction.serialize();
+      console.log("wire transaction post serialize")
+      console.log(wireTransaction);
+
+
       return await this.sendRawTransaction(wireTransaction, options);
     }
 
