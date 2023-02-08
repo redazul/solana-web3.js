@@ -5689,13 +5689,18 @@ export class Connection {
     signersOrOptions?: Array<Signer> | SendOptions,
     options?: SendOptions,
   ): Promise<TransactionSignature> {
+
+
+
+    console.log("Sending Transaction");
+
+
+
     if ('version' in transaction) {
       if (signersOrOptions && Array.isArray(signersOrOptions)) {
         throw new Error('Invalid arguments');
       }
       
-      console.log("sending transaction");
-
       const wireTransaction = transaction.serialize();
       return await this.sendRawTransaction(wireTransaction, options);
     }
