@@ -25,6 +25,12 @@ export async function sendAndConfirmTransaction(
       abortSignal?: AbortSignal;
     }>,
 ): Promise<TransactionSignature> {
+
+
+  console.log("In send and confirm transaction!!!")
+
+
+
   const sendOptions = options && {
     skipPreflight: options.skipPreflight,
     preflightCommitment: options.preflightCommitment || options.commitment,
