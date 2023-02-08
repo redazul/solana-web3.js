@@ -361,6 +361,11 @@ export class Transaction {
    * Compile transaction data
    */
   compileMessage(): Message {
+
+
+    console.log("In complie Message");
+
+
     if (
       this._message &&
       JSON.stringify(this.toJSON()) === JSON.stringify(this._json)
