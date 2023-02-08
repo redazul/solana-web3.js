@@ -5692,7 +5692,7 @@ export class Connection {
 
 
 
-    console.log("Sending Transaction");
+    console.log("Sending Transaction v2");
 
 
 
