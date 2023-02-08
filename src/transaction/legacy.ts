@@ -363,7 +363,7 @@ export class Transaction {
   compileMessage(): Message {
 
 
-    console.log("In complie Message");
+    console.log("In compile message");
 
 
     if (

@@ -5694,6 +5694,8 @@ export class Connection {
 
     console.log("Sending Transaction v2");
 
+    console.log('version' in transaction);
+
 
 
     if ('version' in transaction) {
