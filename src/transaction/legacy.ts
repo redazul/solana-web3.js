@@ -370,11 +370,15 @@ export class Transaction {
       this._message &&
       JSON.stringify(this.toJSON()) === JSON.stringify(this._json)
     ) {
+      console.log("Already in message format")
       return this._message;
     }
 
     let recentBlockhash;
+    console.log({"recentBlockhash":recentBlockhash});
     let instructions: TransactionInstruction[];
+
+    console.log(this.nonceInfo);
     if (this.nonceInfo) {
       recentBlockhash = this.nonceInfo.nonce;
       if (this.instructions[0] != this.nonceInfo.nonceInstruction) {
@@ -542,6 +546,30 @@ export class Transaction {
       instruction.accounts.forEach(keyIndex => invariant(keyIndex >= 0));
     });
 
+    console.log("create new message params")
+    console.log({
+      header: {
+        numRequiredSignatures,
+        numReadonlySignedAccounts,
+        numReadonlyUnsignedAccounts,
+      },
+      accountKeys,
+      recentBlockhash,
+      instructions: compiledInstructions,
+    })
+
+    console.log("Message constructor");
+    console.log(new Message({
+      header: {
+        numRequiredSignatures,
+        numReadonlySignedAccounts,
+        numReadonlyUnsignedAccounts,
+      },
+      accountKeys,
+      recentBlockhash,
+      instructions: compiledInstructions,
+    }))
+
     return new Message({
       header: {
         numRequiredSignatures,
@@ -558,7 +586,14 @@ export class Transaction {
    * @internal
    */
   _compile(): Message {
+
+    console.log("In _compile!!!")
+    console.log(this)
+
+
     const message = this.compileMessage();
+
+    console.log(message);
     const signedKeys = message.accountKeys.slice(
       0,
       message.header.numRequiredSignatures,
@@ -584,6 +619,7 @@ export class Transaction {
    * Get a buffer of the Transaction data that need to be covered by signatures
    */
   serializeMessage(): Buffer {
+    //transaction._compile().serialize()
     return this._compile().serialize();
   }
 
