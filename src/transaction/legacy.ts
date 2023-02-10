@@ -375,10 +375,8 @@ export class Transaction {
     }
 
     let recentBlockhash;
-    console.log({"recentBlockhash":recentBlockhash});
     let instructions: TransactionInstruction[];
 
-    console.log(this.nonceInfo);
     if (this.nonceInfo) {
       recentBlockhash = this.nonceInfo.nonce;
       if (this.instructions[0] != this.nonceInfo.nonceInstruction) {
@@ -557,6 +555,9 @@ export class Transaction {
       recentBlockhash,
       instructions: compiledInstructions,
     })
+
+    console.log("accounts for instruction");
+    console.log(compiledInstructions[0].accounts)
 
     console.log("Message constructor");
     console.log(new Message({

@@ -68,6 +68,16 @@ export class Message {
   >();
 
   constructor(args: MessageArgs) {
+
+    console.log("In message constructor");
+    console.log(this)
+    console.log("header");
+    console.log(args.header);
+    console.log("accountKeys contructor")
+    console.log(args.accountKeys)
+    console.log(args.accountKeys.map(account => new PublicKey(account)))
+
+
     this.header = args.header;
     this.accountKeys = args.accountKeys.map(account => new PublicKey(account));
     this.recentBlockhash = args.recentBlockhash;
