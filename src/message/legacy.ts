@@ -167,20 +167,29 @@ export class Message {
   }
 
   serialize(): Buffer {
+
+
+    console.log("Time to serialize the message stuct that we just built")
+
     const numKeys = this.accountKeys.length;
+    console.log(numKeys);
 
     let keyCount: number[] = [];
     shortvec.encodeLength(keyCount, numKeys);
+    console.log(keyCount)
 
     const instructions = this.instructions.map(instruction => {
       const {accounts, programIdIndex} = instruction;
       const data = Array.from(bs58.decode(instruction.data));
+      console.log(data)
 
       let keyIndicesCount: number[] = [];
       shortvec.encodeLength(keyIndicesCount, accounts.length);
+      console.log(keyIndicesCount)
 
       let dataCount: number[] = [];
       shortvec.encodeLength(dataCount, data.length);
+      console.log(dataCount)
 
       return {
         programIdIndex,
@@ -191,11 +200,23 @@ export class Message {
       };
     });
 
+    console.log(instructions)
+
     let instructionCount: number[] = [];
     shortvec.encodeLength(instructionCount, instructions.length);
+
+    console.log(instructionCount)
+
     let instructionBuffer = Buffer.alloc(PACKET_DATA_SIZE);
+
+    console.log(PACKET_DATA_SIZE)
+  
     Buffer.from(instructionCount).copy(instructionBuffer);
+
+    console.log(instructionBuffer)
     let instructionBufferLength = instructionCount.length;
+
+    console.log(instructionBufferLength)
 
     instructions.forEach(instruction => {
       const instructionLayout = BufferLayout.struct<
@@ -265,9 +286,13 @@ export class Message {
       recentBlockhash: bs58.decode(this.recentBlockhash),
     };
 
+    console.log(transaction)
+
     let signData = Buffer.alloc(2048);
     const length = signDataLayout.encode(transaction, signData);
+    console.log(signData)
     instructionBuffer.copy(signData, length);
+    console.log(instructionBuffer);
     return signData.slice(0, length + instructionBuffer.length);
   }
 
